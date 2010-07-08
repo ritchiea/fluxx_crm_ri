@@ -1,6 +1,5 @@
 class FluxxCrmCreateGeoStates < ActiveRecord::Migration
   def self.up
-    p "ESH: connection.adapter_name=#{connection.adapter_name}"
     create_table :geo_states do |t|
       t.timestamps
       t.string :name, :limit => 90, :null => false
