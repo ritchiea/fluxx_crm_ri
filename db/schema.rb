@@ -9,7 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100708230715) do
+ActiveRecord::Schema.define(:version => 20100710052914) do
+
+  create_table "client_stores", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "deleted_at"
+    t.text     "data",       :limit => 2147483647
+  end
+
+  add_index "client_stores", ["user_id"], :name => "index_client_stores_on_user_id"
 
   create_table "favorites", :force => true do |t|
     t.datetime "created_at"
@@ -88,6 +99,34 @@ ActiveRecord::Schema.define(:version => 20100708230715) do
     t.integer  "documentable_id",       :null => false
   end
 
+  create_table "multi_element_choices", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "target_id",              :null => false
+    t.integer  "multi_element_value_id", :null => false
+  end
+
+  add_index "multi_element_choices", ["multi_element_value_id"], :name => "multi_element_choice_value_id"
+  add_index "multi_element_choices", ["target_id", "multi_element_value_id"], :name => "multi_element_choices_index_cl_attr_val", :unique => true
+
+  create_table "multi_element_groups", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "target_class_name", :null => false
+    t.string   "name"
+    t.string   "description"
+  end
+
+  create_table "multi_element_values", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "description"
+    t.string   "value"
+    t.integer  "multi_element_group_id"
+  end
+
+  add_index "multi_element_values", ["multi_element_group_id"], :name => "index_multi_element_values_on_multi_element_group_id"
+
   create_table "notes", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -135,6 +174,17 @@ ActiveRecord::Schema.define(:version => 20100708230715) do
   add_index "organizations", ["name"], :name => "index_organizations_on_name", :length => {"name"=>"767"}
   add_index "organizations", ["parent_org_id"], :name => "index_organizations_on_parent_org_id"
   add_index "organizations", ["updated_by_id"], :name => "organizations_updated_by_id"
+
+  create_table "realtime_updates", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "action",           :null => false
+    t.integer  "user_id"
+    t.integer  "model_id",         :null => false
+    t.string   "type_name",        :null => false
+    t.string   "model_class",      :null => false
+    t.text     "delta_attributes", :null => false
+  end
 
   create_table "user_organizations", :force => true do |t|
     t.datetime "created_at"
