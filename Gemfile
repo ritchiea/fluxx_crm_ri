@@ -9,7 +9,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem "will_paginate", :git => "http://github.com/mislav/will_paginate.git", :branch => "rails3"
 gem 'mysql'
 gem "acts_as_audited", :git => "git@github.com:ehansen486/acts_as_audited.git"
-gem "fluxx_engine", '>= 0.0.4', :path => "../fluxx_engine"
+gem "fluxx_engine", '>= 0.0.4', :path => "../fluxx_engine", :require => 'fluxx_engine'
 gem "fluxx_crm", '>= 0.0.2', :path => "../fluxx_crm"
 gem "haml", ">=3"
 gem "thinking-sphinx", :git => "http://github.com/freelancing-god/thinking-sphinx.git", :branch => "rails3", :require => 'thinking_sphinx'
