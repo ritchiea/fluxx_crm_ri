@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100712163936) do
+ActiveRecord::Schema.define(:version => 20100715200827) do
 
   create_table "audits", :force => true do |t|
     t.datetime "created_at"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(:version => 20100712163936) do
     t.string   "longitude",      :limit => 150
     t.string   "metro_code",     :limit => 150
     t.string   "area_code",      :limit => 150
-    t.integer  "orginal_loc_id",                :null => false
+    t.integer  "original_id",                   :null => false
   end
 
   add_index "geo_cities", ["geo_country_id"], :name => "geo_cities_country_id"
@@ -104,6 +104,30 @@ ActiveRecord::Schema.define(:version => 20100712163936) do
   add_index "geo_states", ["abbreviation"], :name => "geo_states_abbrv_index"
   add_index "geo_states", ["geo_country_id"], :name => "geo_states_country_id"
   add_index "geo_states", ["name"], :name => "geo_states_name_index"
+
+  create_table "group_members", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.integer  "group_id"
+    t.integer  "groupable_id"
+    t.string   "groupable_type"
+  end
+
+  add_index "group_members", ["group_id"], :name => "index_group_members_on_group_id"
+  add_index "group_members", ["groupable_id", "groupable_type"], :name => "index_group_members_on_groupable_id_and_groupable_type"
+
+  create_table "groups", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.string   "name"
+    t.boolean  "deprecrated",   :default => false
+  end
+
+  add_index "groups", ["name"], :name => "index_groups_on_name", :unique => true
 
   create_table "model_documents", :force => true do |t|
     t.datetime "created_at"
