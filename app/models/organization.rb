@@ -7,6 +7,8 @@ class Organization < ActiveRecord::Base
 
     # attributes
     has created_at, updated_at, deleted_at, state, parent_org_id
+
+    set_property :delta => true
   end
 end
 
