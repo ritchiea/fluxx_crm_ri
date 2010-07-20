@@ -6,3 +6,4 @@ log/*.log
 tmp/**/*
 db/sphinx
 config/development.sphinx.conf
+public/fluxx_engine
