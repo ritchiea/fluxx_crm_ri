@@ -1,4 +1,5 @@
 FluxxCrmRi::Application.routes.draw do |map|
+  get "dashboard/index"
   root :to => 'dashboard#index'
 
   # The priority is based upon order of creation:
