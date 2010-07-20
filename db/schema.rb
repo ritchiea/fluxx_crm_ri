@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(:version => 20100715200827) do
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
     t.string   "name"
-    t.boolean  "deprecrated",   :default => false
+    t.boolean  "deprecated",    :default => false
   end
 
   add_index "groups", ["name"], :name => "index_groups_on_name", :unique => true
@@ -253,6 +253,7 @@ ActiveRecord::Schema.define(:version => 20100715200827) do
     t.datetime "updated_at"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
+    t.text     "roles_text"
     t.string   "login",                        :limit => 40
     t.string   "first_name",                   :limit => 400,  :default => ""
     t.string   "last_name",                    :limit => 400,  :default => ""
