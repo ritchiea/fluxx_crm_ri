@@ -1,3 +1,4 @@
+MAX_SPHINX_RESULTS = 500000
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
