@@ -7,6 +7,9 @@ class Organization < ActiveRecord::Base
 
     # attributes
     has created_at, updated_at, deleted_at, state, parent_org_id
+    has users(:id), :as => :user_ids
+    has group_members.group(:id), :type => :multi, :as => :group_ids
+    has favorites.user(:id), :as => :favorite_user_ids
 
     set_property :delta => true
   end
