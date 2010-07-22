@@ -1,5 +1,5 @@
 class Organization < ActiveRecord::Base
-  include ::FLuxxOrganization
+  include ::FluxxOrganization
 
   define_index do
     # fields

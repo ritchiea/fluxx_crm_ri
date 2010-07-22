@@ -20,8 +20,8 @@ class DealsControllerTest < ActionController::TestCase
     assert_difference('Deal.count') do
       post :create, :deal => @deal.attributes
     end
-
-    assert_redirected_to deal_path(assigns(:deal))
+    assert 201, @response.status
+    assert @response.header["Location"] =~ /#{deal_path(assigns(:deal))}$/
   end
 
   test "should show deal" do

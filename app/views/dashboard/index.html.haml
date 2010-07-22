@@ -40,10 +40,16 @@
                       type: 'green small'
                     },
                     {
-                    label: 'New User',
-                    url: '#{new_user_path}',
-                    className: 'new-detail',
-                    type: 'green small'
+                      label: 'New User',
+                      url: '#{new_user_path}',
+                      className: 'new-detail',
+                      type: 'green small'
+                    },
+                    {
+                      label: 'New Deal',
+                      url: '#{new_deal_path}',
+                      className: 'new-detail',
+                      type: 'green small'
                     }
                   ],
                   [
@@ -54,7 +60,8 @@
                       type: 'plus small',
                       popup: [
                         '#{link_to 'Org', organizations_path, :class => 'new-listing'}',
-                        '#{link_to 'User', users_path, :class => 'new-listing'}'
+                        '#{link_to 'User', users_path, :class => 'new-listing'}',
+                        '#{link_to 'Deal', deals_path, :class => 'new-listing'}'
                       ],
                     }
                   ]

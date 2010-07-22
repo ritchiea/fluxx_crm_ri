@@ -3,7 +3,7 @@ class CreateDeals < ActiveRecord::Migration
     create_table :deals do |t|
       t.timestamps
       t.integer :created_by_id, :updated_by_id, :organization_id, :null => true, :limit => 12
-      t.string :description
+      t.text :description
       t.integer :proposed_amount, :limit => 12
       t.integer :contract_amount, :limit => 12
       t.string :state

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100722044543) do
+ActiveRecord::Schema.define(:version => 20100722152738) do
 
   create_table "audits", :force => true do |t|
     t.datetime "created_at"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(:version => 20100722044543) do
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
     t.integer  "organization_id"
-    t.string   "description"
+    t.text     "description"
     t.integer  "proposed_amount"
     t.integer  "contract_amount"
     t.string   "state"
@@ -308,5 +308,22 @@ ActiveRecord::Schema.define(:version => 20100722044543) do
   add_index "users", ["personal_geo_country_id"], :name => "users_personal_country_id"
   add_index "users", ["personal_geo_state_id"], :name => "users_personal_geo_state_id"
   add_index "users", ["primary_user_organization_id"], :name => "users_primary_user_org_id"
+
+  create_table "workflow_events", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.string   "workflowable_type"
+    t.integer  "workflowable_id"
+    t.string   "ip_address"
+    t.string   "old_state"
+    t.string   "new_state"
+    t.text     "comment"
+  end
+
+  add_index "workflow_events", ["created_by_id"], :name => "workflow_events_created_by_id"
+  add_index "workflow_events", ["updated_by_id"], :name => "workflow_events_updated_by_id"
+  add_index "workflow_events", ["workflowable_id", "workflowable_type"], :name => "index_workflow_events_on_workflowable_id_and_workflowable_type"
 
 end
