@@ -5,6 +5,7 @@ gem 'rails', '3.0.0.beta4'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem "aasm", :git => "http://github.com/rubyist/aasm.git"
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem "will_paginate", :git => "http://github.com/mislav/will_paginate.git", :branch => "rails3"
 gem 'mysql'

@@ -1,4 +1,6 @@
 FluxxCrmRi::Application.routes.draw do |map|
+  resources :deals
+
   get "dashboard/index"
   root :to => 'dashboard#index'
 

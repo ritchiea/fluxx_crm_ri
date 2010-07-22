@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100715200827) do
+ActiveRecord::Schema.define(:version => 20100722044543) do
 
   create_table "audits", :force => true do |t|
     t.datetime "created_at"
@@ -40,6 +40,20 @@ ActiveRecord::Schema.define(:version => 20100715200827) do
   end
 
   add_index "client_stores", ["user_id"], :name => "index_client_stores_on_user_id"
+
+  create_table "deals", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.integer  "organization_id"
+    t.string   "description"
+    t.integer  "proposed_amount"
+    t.integer  "contract_amount"
+    t.string   "state"
+    t.datetime "deleted_at"
+    t.boolean  "delta",           :default => true
+  end
 
   create_table "favorites", :force => true do |t|
     t.datetime "created_at"
