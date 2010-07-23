@@ -19,6 +19,7 @@ class Deal < ActiveRecord::Base
     set_property :delta => true
   end
 
+  insta_multi
   insta_realtime do |insta|
     insta.delta_attributes = SEARCH_ATTRIBUTES
     insta.updated_by_field = :updated_by_id
