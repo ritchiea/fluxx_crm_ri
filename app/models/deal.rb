@@ -1,5 +1,9 @@
 class Deal < ActiveRecord::Base
   belongs_to :updated_by, :class_name => 'User', :foreign_key => 'updated_by_id'
+  belongs_to :main_contact, :class_name => 'User', :foreign_key => 'main_contact_id'
+  belongs_to :decision_maker, :class_name => 'User', :foreign_key => 'decision_maker_id'
+  belongs_to :sales_lead, :class_name => 'User', :foreign_key => 'sales_lead_id'
+  
   SEARCH_ATTRIBUTES = [:description]
   
   define_index do

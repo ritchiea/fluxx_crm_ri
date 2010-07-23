@@ -15,6 +15,7 @@ gem "fluxx_crm", '>= 0.0.2', :path => "../fluxx_crm"
 gem "haml", ">=3"
 gem "thinking-sphinx", :git => "http://github.com/freelancing-god/thinking-sphinx.git", :branch => "rails3", :require => 'thinking_sphinx'
 gem 'paperclip'
+gem 'devise', '1.1.rc2'
 
 
 # Use unicorn as the web server

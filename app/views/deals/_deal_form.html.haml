@@ -1,5 +1,10 @@
 = form.input :description, :label => "Description"
-= form.input :proposed_amount, :label => "Proposed Amount"
-= form.input :contract_amount, :label => "Contract Amount"
+= form.input :estimated_amount, :label => "Estimated Amount"
+= form.input :final_amount, :label => "Final Amount"
+= form.input :probability, :label => "Probability"
+= form.input :main_contact, :label => "Main Contact", :as => :autocomplete, :autocomplete_url => users_path(:format => :json), :related_attribute_name => :full_name
+= form.input :decision_maker, :label => "Decision Maker", :as => :autocomplete, :autocomplete_url => users_path(:format => :json), :related_attribute_name => :full_name
+= form.input :sales_lead, :label => "Sales Lead", :as => :autocomplete, :autocomplete_url => users_path(:format => :json), :related_attribute_name => :full_name
+= form.input :deal_categories, :label => "Sales Lead", :as => :select
 
 = form.commit_button

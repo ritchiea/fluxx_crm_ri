@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100722152738) do
+ActiveRecord::Schema.define(:version => 20100723164103) do
 
   create_table "audits", :force => true do |t|
     t.datetime "created_at"
@@ -48,12 +48,20 @@ ActiveRecord::Schema.define(:version => 20100722152738) do
     t.integer  "updated_by_id"
     t.integer  "organization_id"
     t.text     "description"
-    t.integer  "proposed_amount"
-    t.integer  "contract_amount"
+    t.integer  "estimated_amount"
+    t.integer  "final_amount"
+    t.integer  "probability"
+    t.integer  "main_contact_id"
+    t.integer  "decision_maker_id"
+    t.integer  "sales_lead_id"
+    t.datetime "final_proposal_at"
+    t.integer  "category_id"
     t.string   "state"
     t.datetime "deleted_at"
-    t.boolean  "delta",           :default => true
+    t.boolean  "delta",             :default => true
   end
+
+  add_index "deals", ["category_id"], :name => "deals_categories"
 
   create_table "favorites", :force => true do |t|
     t.datetime "created_at"
@@ -223,6 +231,10 @@ ActiveRecord::Schema.define(:version => 20100722152738) do
     t.boolean  "delta",                           :default => true
     t.datetime "deleted_at"
     t.integer  "parent_org_id"
+    t.integer  "num_employees"
+    t.integer  "num_grants"
+    t.integer  "assets"
+    t.integer  "annual_revenue"
   end
 
   add_index "organizations", ["created_by_id"], :name => "organizations_created_by_id"
@@ -301,13 +313,28 @@ ActiveRecord::Schema.define(:version => 20100722152738) do
     t.integer  "primary_user_organization_id"
     t.datetime "last_logged_in_at"
     t.string   "time_zone",                    :limit => 40,   :default => "Pacific Time (US & Canada)"
+    t.string   "encrypted_password",           :limit => 128,  :default => "",                           :null => false
+    t.string   "password_salt",                                :default => "",                           :null => false
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "reset_password_token"
+    t.string   "remember_token"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                                :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
   end
 
+  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
   add_index "users", ["personal_geo_country_id"], :name => "users_personal_country_id"
   add_index "users", ["personal_geo_state_id"], :name => "users_personal_geo_state_id"
   add_index "users", ["primary_user_organization_id"], :name => "users_primary_user_org_id"
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "workflow_events", :force => true do |t|
     t.datetime "created_at"
