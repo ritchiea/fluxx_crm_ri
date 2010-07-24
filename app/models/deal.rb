@@ -19,6 +19,7 @@ class Deal < ActiveRecord::Base
     set_property :delta => true
   end
 
+  insta_workflow
   insta_multi
   insta_realtime do |insta|
     insta.delta_attributes = SEARCH_ATTRIBUTES
@@ -34,12 +35,46 @@ class Deal < ActiveRecord::Base
   aasm_initial_state :new
   
   aasm_state :new
-  aasm_state :closed
+  aasm_state :contacted
+  aasm_state :qualified
+  aasm_state :negotiating
+  aasm_state :lost
+  aasm_state :won
+  aasm_state :backburnered
+  aasm_state :not_interested
   
-  aasm_event :close do
-    transitions :from => :new, :to => :closed
+  DEAL_CHAIN_STATES = [:new, :contacted, :qualified, :negotiating]
+  TERMINAL_STATES = [:lost, :won, :backburnered, :not_interested]
+  
+  def self.deal_chain_states
+    DEAL_CHAIN_STATES
   end
   
+  aasm_event :contact do
+    transitions :from => :new, :to => :contacted
+  end
   
-  insta_workflow
+  aasm_event :qualify do
+    transitions :from => :contacted, :to => :qualified
+  end
+  
+  aasm_event :start_negotiations do
+    transitions :from => :qualified, :to => :negotiating
+  end
+
+  aasm_event :lose do
+    transitions :from => DEAL_CHAIN_STATES, :to => :lost
+  end
+
+  aasm_event :win do
+    transitions :from => :negotiating, :to => :win
+  end
+  
+  aasm_event :backburnered do
+    transitions :from => :negotiating, :to => :backburnered
+  end
+  
+  aasm_event :reopen do
+    transitions :from => TERMINAL_STATES, :to => :backburnered
+  end
 end

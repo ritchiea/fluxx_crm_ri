@@ -9,3 +9,4 @@ config/development.sphinx.conf
 public/fluxx_engine
 config/database.yml
 public/system
+tmtags
