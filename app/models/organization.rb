@@ -1,5 +1,7 @@
 class Organization < ActiveRecord::Base
   include ::FluxxOrganization
+  has_many :deal_organizations
+  has_many :deals, :through => :deal_organizations
 
   define_index do
     # fields

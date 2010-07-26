@@ -1,0 +1,16 @@
+%h2
+  - if can_current_user_edit_create_users? 
+    = link_to 'add a user relationship', new_deal_user_path(:deal_user => {:deal_id => model.id}),
+      :class => 'to-modal'
+  User Relationships
+
+%div.user_row
+  - if(model.deal_users.size > 0)
+    - model.deal_users.each do |deal_user|
+      %div= deal_user.user.full_name
+      = link_to_delete 'delete', deal_user, {:class => 'fluxx-card-form-on-complete-refresh', :method => :delete}
+
+    <br clear="all"/>
+
+  - else
+    No links to users

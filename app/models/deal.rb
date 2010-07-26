@@ -4,6 +4,11 @@ class Deal < ActiveRecord::Base
   belongs_to :decision_maker, :class_name => 'User', :foreign_key => 'decision_maker_id'
   belongs_to :sales_lead, :class_name => 'User', :foreign_key => 'sales_lead_id'
   
+  has_many :deal_users
+  has_many :users, :through => :deal_users
+  has_many :deal_organizations
+  has_many :organizations, :through => :deal_organizations
+  
   SEARCH_ATTRIBUTES = [:description]
   
   define_index do
@@ -38,8 +43,6 @@ class Deal < ActiveRecord::Base
   end
 
 
-  
-  
   include AASM
 
   aasm_column :state
