@@ -1,0 +1,4 @@
+= form.input :deal_id, :as => :hidden
+= form.input :organization, :label => "Organization", :as => :autocomplete, :autocomplete_url => organizations_path(:format => :json), :related_attribute_name => :name
+
+= form.commit_button

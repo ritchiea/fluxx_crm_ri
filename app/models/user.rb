@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  has_many :deal_organizations
+  has_many :deal_users
+  has_many :deals, :through => :deal_users
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable

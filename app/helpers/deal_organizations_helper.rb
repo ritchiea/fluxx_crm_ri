@@ -1,0 +1,2 @@
+module DealOrganizationsHelper
+end
