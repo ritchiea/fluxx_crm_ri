@@ -28,6 +28,17 @@ class Deal < ActiveRecord::Base
   insta_search do |insta|
     insta.filter_fields = SEARCH_ATTRIBUTES
   end
+  insta_workflow do |insta|
+    insta.states_to_english = {
+      :new => 'New', :contacted => 'Contacted', :qualified => 'Qualified', :negotiating => 'Negotiating', :lost => 'Lost', :won => 'Won', :backburnered => 'Backburnered', :not_interested => 'Not Interested'
+    }
+    insta.events_to_english = {
+      :contact => "Contact", :qualify => 'Qualify', :start_negotiations => 'Start Negotiations', :lose => 'Lose', :win => 'Win', :backburnered => 'Backburner', :reopen => "Reopen"
+    }
+  end
+
+
+  
   
   include AASM
 
@@ -70,7 +81,7 @@ class Deal < ActiveRecord::Base
     transitions :from => :negotiating, :to => :win
   end
   
-  aasm_event :backburnered do
+  aasm_event :backburner do
     transitions :from => :negotiating, :to => :backburnered
   end
   

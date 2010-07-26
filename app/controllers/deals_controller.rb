@@ -4,6 +4,7 @@ class DealsController < ApplicationController
   end
   insta_show Deal do |insta|
     insta.template = 'deal_show'
+    insta.add_workflow
   end
   insta_new Deal do |insta|
     insta.template = 'deal_form'
@@ -16,6 +17,7 @@ class DealsController < ApplicationController
   end
   insta_put Deal do |insta|
     insta.template = 'deal_form'
+    insta.add_workflow
   end
   insta_delete Deal do |insta|
     insta.template = 'deal_form'
