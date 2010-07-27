@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  has_many :deal_organizations
   has_many :deal_users
   has_many :deals, :through => :deal_users
 

@@ -303,7 +303,7 @@ ActiveRecord::Schema.define(:version => 20100726130632) do
     t.string   "login",                        :limit => 40
     t.string   "first_name",                   :limit => 400,  :default => ""
     t.string   "last_name",                    :limit => 400,  :default => ""
-    t.string   "email",                        :limit => 400
+    t.string   "email",                        :limit => 250
     t.string   "personal_email",               :limit => 400
     t.string   "salutation",                   :limit => 400
     t.string   "prefix",                       :limit => 400

@@ -13,9 +13,11 @@ gem "acts_as_audited", :git => "git://github.com/ehansen486/acts_as_audited.git"
 gem "fluxx_engine", '>= 0.0.4', :path => "../fluxx_engine", :require => 'fluxx_engine'
 gem "fluxx_crm", '>= 0.0.2', :path => "../fluxx_crm"
 gem "haml", ">=3"
-gem "thinking-sphinx", :git => "http://github.com/freelancing-god/thinking-sphinx.git", :branch => "rails3", :require => 'thinking_sphinx'
+gem 'thinking-sphinx', '2.0.0.rc1', :require => 'thinking_sphinx'
 gem 'paperclip'
 gem 'devise', '1.1.rc2'
+gem 'machinist', '>=1.0.6'
+gem 'faker', '>=0.3.1'
 
 
 # Use unicorn as the web server

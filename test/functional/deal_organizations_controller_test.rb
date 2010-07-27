@@ -2,6 +2,8 @@ require 'test_helper'
 
 class DealOrganizationsControllerTest < ActionController::TestCase
   setup do
+    @user1 = User.make
+    login_as @user1
     @deal_organization = deal_organizations(:one)
   end
 
