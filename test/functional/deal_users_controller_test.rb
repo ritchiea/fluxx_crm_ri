@@ -2,7 +2,11 @@ require 'test_helper'
 
 class DealUsersControllerTest < ActionController::TestCase
   setup do
-    @deal_user = deal_users(:one)
+    @user1 = User.make
+    sign_in @user1
+    @user = User.make
+    @deal = Deal.make
+    @deal_user = DealUser.make :user => @user, :deal => @deal
   end
 
   test "should get index" do
@@ -21,7 +25,8 @@ class DealUsersControllerTest < ActionController::TestCase
       post :create, :deal_user => @deal_user.attributes
     end
 
-    assert_redirected_to deal_user_path(assigns(:deal_user))
+    assert 201, @response.status
+    assert @response.header["Location"] =~ /#{deal_user_path(assigns(:deal_user))}$/
   end
 
   test "should show deal_user" do
@@ -29,21 +34,9 @@ class DealUsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get edit" do
-    get :edit, :id => @deal_user.to_param
-    assert_response :success
-  end
-
-  test "should update deal_user" do
-    put :update, :id => @deal_user.to_param, :deal_user => @deal_user.attributes
-    assert_redirected_to deal_user_path(assigns(:deal_user))
-  end
-
   test "should destroy deal_user" do
     assert_difference('DealUser.count', -1) do
       delete :destroy, :id => @deal_user.to_param
     end
-
-    assert_redirected_to deal_users_path
   end
 end

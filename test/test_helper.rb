@@ -3,6 +3,20 @@ require File.expand_path('../../config/environment', __FILE__)
 require File.join(File.dirname(__FILE__), 'blueprint')
 require 'rails/test_help'
 
+class TestHelper
+  def self.loaded_meg= val
+    @loaded_meg = val
+  end
+  
+  def self.loaded_meg
+    @loaded_meg
+  end
+  
+end
+
+
+
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
@@ -11,6 +25,26 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  def setup_fixtures
+    unless TestHelper.loaded_meg
+      TestHelper.loaded_meg = true
+      setup_multi_element_groups
+    end
+    super
+  end
+
+  setup :clear_out_blueprint_attributes
+
+  def clear_out_blueprint_attributes
+    @entered = {} unless @entered
+    unless @entered["#{self.class.name}::#{@method_name}"]
+      @entered["#{self.class.name}::#{@method_name}"] = true
+
+      # It's possible to run out of faker values (such as last name), so if you don't reset your shams you could run out of unique values
+      Sham.reset
+    end
+  end
 end
 
 class ActionController::TestCase

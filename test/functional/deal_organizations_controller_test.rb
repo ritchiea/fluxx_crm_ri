@@ -4,7 +4,9 @@ class DealOrganizationsControllerTest < ActionController::TestCase
   setup do
     @user1 = User.make
     sign_in @user1
-    @deal_organization = deal_organizations(:one)
+    @org = Organization.make
+    @deal = Deal.make
+    @deal_organization = DealOrganization.make :organization => @org, :deal => @deal
   end
 
   test "should get index" do

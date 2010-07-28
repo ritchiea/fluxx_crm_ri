@@ -2,7 +2,9 @@ require 'test_helper'
 
 class DealsControllerTest < ActionController::TestCase
   setup do
-    @deal = deals(:one)
+    @user1 = User.make
+    sign_in @user1
+    @deal = Deal.make
   end
 
   test "should get index" do
@@ -40,10 +42,8 @@ class DealsControllerTest < ActionController::TestCase
   end
 
   test "should destroy deal" do
-    assert_difference('Deal.count', -1) do
-      delete :destroy, :id => @deal.to_param
-    end
+    delete :destroy, :id => @deal.to_param
 
-    assert_redirected_to deals_path
+    assert_not_nil @deal.reload().deleted_at 
   end
 end

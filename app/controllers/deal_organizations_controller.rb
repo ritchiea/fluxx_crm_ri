@@ -4,7 +4,6 @@ class DealOrganizationsController < ApplicationController
   end
   insta_show DealOrganization do |insta|
     insta.template = 'deal_organization_show'
-    insta.add_workflow
   end
   insta_new DealOrganization do |insta|
     insta.template = 'deal_organization_form'

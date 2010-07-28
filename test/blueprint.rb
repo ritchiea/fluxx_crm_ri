@@ -39,3 +39,32 @@ Organization.blueprint do
   street_address2 Sham.words
   url Sham.url
 end
+
+Deal.blueprint do
+  description Sham.sentence
+end
+
+DealOrganization.blueprint do
+end
+
+DealUser.blueprint do
+end
+
+def setup_multi_element_groups
+  unless bp_attrs[:executed_setup_multi_element_groups]
+    bp_attrs[:executed_setup_multi_element_groups] = true
+    MultiElementValue.delete_all
+    MultiElementGroup.delete_all
+    bp_attrs[:software_group] = MultiElementGroup.create :name => 'software_types', :description => 'Software', :target_class_name => 'Organization'
+    MultiElementValue.create :multi_element_group_id => bp_attrs[:software_group].id, :value => 'Altum EasyGrants'
+    MultiElementValue.create :multi_element_group_id => bp_attrs[:software_group].id, :value => 'Altum proposalCENTRAL'
+    MultiElementValue.create :multi_element_group_id => bp_attrs[:software_group].id, :value => 'Bromelkamp Pearl (First Pearl, Corporate Pearl, Community Pearl)'
+    bp_attrs[:category_group] = MultiElementGroup.create :name => 'deal_categories', :description => 'Deal Categories', :target_class_name => 'Deal'
+    MultiElementValue.create :multi_element_group_id => bp_attrs[:category_group].id, :value => 'Red'
+    MultiElementValue.create :multi_element_group_id => bp_attrs[:category_group].id, :value => 'Yellow'
+    MultiElementValue.create :multi_element_group_id => bp_attrs[:category_group].id, :value => 'Green'
+    MultiElementValue.create :multi_element_group_id => bp_attrs[:category_group].id, :value => 'Brown'
+    Deal.add_multi_elements
+    Organization.add_multi_elements
+  end
+end

@@ -10,3 +10,4 @@ public/fluxx_engine
 config/database.yml
 public/system
 tmtags
+Gemfile.lock

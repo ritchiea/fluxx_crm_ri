@@ -4,7 +4,6 @@ class DealUsersController < ApplicationController
   end
   insta_show DealUser do |insta|
     insta.template = 'deal_user_show'
-    insta.add_workflow
   end
   insta_new DealUser do |insta|
     insta.template = 'deal_user_form'

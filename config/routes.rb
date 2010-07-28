@@ -1,4 +1,4 @@
-FluxxCrmRi::Application.routes.draw do |map|
+FluxxCrmRi::Application.routes.draw do
   resources :deal_organizations
 
   resources :deal_users
