@@ -21,6 +21,8 @@ gem 'machinist', '>=1.0.6'
 gem 'faker', '>=0.3.1'
 #gem 'formtastic-rails3', '>= 0.9.10.0'
 gem "formtastic", :git => "http://github.com/justinfrench/formtastic.git", :branch => "rails3"
+gem 'jsmin', '>= 1.0.1'
+
 
 
 # Use unicorn as the web server
