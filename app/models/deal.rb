@@ -8,6 +8,10 @@ class Deal < ActiveRecord::Base
   has_many :users, :through => :deal_users
   has_many :deal_organizations
   has_many :organizations, :through => :deal_organizations
+  has_many :favorites, :as => :favorable
+  has_many :model_documents, :as => :documentable
+  has_many :notes, :as => :notable
+  has_many :group_members, :as => :groupable
   
   SEARCH_ATTRIBUTES = [:description]
   
@@ -81,7 +85,7 @@ class Deal < ActiveRecord::Base
   end
 
   aasm_event :win do
-    transitions :from => :negotiating, :to => :win
+    transitions :from => :negotiating, :to => :won
   end
   
   aasm_event :backburner do
@@ -89,6 +93,6 @@ class Deal < ActiveRecord::Base
   end
   
   aasm_event :reopen do
-    transitions :from => TERMINAL_STATES, :to => :backburnered
+    transitions :from => TERMINAL_STATES, :to => :new
   end
 end
