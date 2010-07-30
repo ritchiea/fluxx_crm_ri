@@ -1,0 +1,6 @@
+- software_group = MultiElementGroup.where(:name => 'software_types').first
+- software_values = software_group ? software_group.multi_element_values : []
+= form.input :software_type_ids, :label => 'Software', :as => :select, :required => false, :collection => software_values.sort_by{|software| software.value}.map{|software| [software.value, software.id]}, :input_html => {:class => 'add-another'}
+
+= form.input :sort_attribute, :label => 'Sort Field', :required => false, :as => :select, :include_blank => nil, :collection => [['Last Updated (Default)', 'updated_at']]
+= form.input :sort_order, :label => 'Sort Order', :required => false, :as => :select, :include_blank => nil, :collection => [['Descending', 'desc'], ['Ascending', 'asc']]

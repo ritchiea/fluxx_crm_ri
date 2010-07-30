@@ -3,6 +3,10 @@ class Organization < ActiveRecord::Base
   has_many :deal_organizations
   has_many :deals, :through => :deal_organizations
 
+  insta_search do |insta|
+    insta.filter_fields = [:state, :created_at, :updated_at, :name, :id, :software_type_ids]
+  end
+  
   define_index do
     # fields
     indexes name, :sortable => true
@@ -12,6 +16,7 @@ class Organization < ActiveRecord::Base
     has users(:id), :as => :user_ids
     has group_members.group(:id), :type => :multi, :as => :group_ids
     has favorites.user(:id), :as => :favorite_user_ids
+    has software_types(:id), :as => :software_type_ids
 
     set_property :delta => true
   end
