@@ -1,7 +1,9 @@
 %h2
   - if can_current_user_edit_create_organizations?
     = link_to 'add an organization relationship', new_deal_organization_path(:deal_organization => {:deal_id => model.id}),
-      :class => 'to-modal'
+      :class => 'to-modal',
+      'data-is-success'.to_sym => '.fluxx-card-info',
+      'data-on-success'.to_sym => 'refreshCaller,close'
   Organization Relationships
 
 %div.org_row
