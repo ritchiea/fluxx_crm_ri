@@ -15,7 +15,11 @@ module Rack
       elsif path.match('\.js$')
         `cd #{@build_dir} && rake build:js`
       end
+begin
       @app.call env
+rescue Exception => e
+  p "Rack stack trace: #{e.backtrace}"
+end
     end
   end
 end
@@ -24,4 +28,9 @@ is_ui_dev = ENV['FLUXX_UI_DEV'].to_i == 1 ? true : false
 puts "FLUXX_UI_DEV = #{is_ui_dev}"
 use Rack::FluxxBuilder if is_ui_dev
 require ::File.expand_path('../config/environment',  __FILE__)
-run FluxxCrmRi::Application
+
+begin
+  run FluxxCrmRi::Application
+rescue Exception => e
+  p "Rack stack trace: #{e.backtrace}"
+end
