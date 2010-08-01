@@ -12,6 +12,7 @@ class Organization < ActiveRecord::Base
     indexes name, :sortable => true
 
     # attributes
+    has (:id), :as => :id
     has created_at, updated_at, deleted_at, state, parent_org_id
     has users(:id), :as => :user_ids
     has group_members.group(:id), :type => :multi, :as => :group_ids

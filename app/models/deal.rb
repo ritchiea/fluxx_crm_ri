@@ -24,6 +24,7 @@ class Deal < ActiveRecord::Base
 
     # attributes
     has created_at, updated_at, deleted_at, state
+    has (:id), :as => :id
 
     set_property :delta => true
   end
