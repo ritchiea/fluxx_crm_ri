@@ -3,7 +3,6 @@ class FluxxCrmCreateUsers < ActiveRecord::Migration
     create_table "users", :force => true do |t|
       t.timestamps
       t.integer :created_by_id, :updated_by_id, :null => true, :limit => 12
-      t.text   :roles_text
       t.string :login,                       :limit => 40, :null => true
       t.string :first_name,                  :limit => 400, :null => true, :default => ''
       t.string :last_name,                   :limit => 400, :null => true, :default => ''
@@ -37,9 +36,12 @@ class FluxxCrmCreateUsers < ActiveRecord::Migration
       t.integer :primary_user_organization_id, :limit => 12, :null => true
       t.datetime :last_logged_in_at,         :null => true
       t.string :time_zone,                   :limit => 40, :null => :false, :default => (ActiveSupport::TimeZone.us_zones.select{|tz| tz.utc_offset == -28800}).first.name
+      t.datetime :locked_until,              :null => true
+      t.integer :locked_by_id,               :null => true
     end
     add_index :users, :login, :unique => true
     add_index :users, :email, :unique => true
+    
     execute "alter table users add constraint users_personal_country_id foreign key (personal_geo_country_id) references geo_countries(id)" unless connection.adapter_name =~ /SQLite/i
     execute "alter table users add constraint users_personal_geo_state_id foreign key (personal_geo_state_id) references geo_states(id)" unless connection.adapter_name =~ /SQLite/i
     execute "alter table users add constraint users_primary_user_org_id foreign key (primary_user_organization_id) references user_organizations(id)" unless connection.adapter_name =~ /SQLite/i

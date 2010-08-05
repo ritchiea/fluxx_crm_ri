@@ -1,15 +1,16 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of Active Record to incrementally modify your database, and
-# then regenerate this schema definition.
+# This file is auto-generated from the current state of the database. Instead 
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your database schema. If you need
-# to create the application database on another system, you should be using db:schema:load, not running
-# all the migrations from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# Note that this schema.rb definition is the authoritative source for your 
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100726130632) do
+ActiveRecord::Schema.define(:version => 20100804140811) do
 
   create_table "audits", :force => true do |t|
     t.datetime "created_at"
@@ -91,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20100726130632) do
     t.integer  "favorable_id",   :null => false
   end
 
+  add_index "favorites", ["favorable_type", "favorable_id"], :name => "index_favorites_on_favorable_type_and_favorable_id"
   add_index "favorites", ["user_id"], :name => "favorites_user_id"
 
   create_table "geo_cities", :force => true do |t|
@@ -129,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20100726130632) do
     t.string   "population",           :limit => 90
     t.string   "title",                :limit => 90
     t.text     "comment"
+    t.integer  "original_id",                        :null => false
   end
 
   add_index "geo_countries", ["iso2"], :name => "country_iso2_index"
@@ -182,7 +185,11 @@ ActiveRecord::Schema.define(:version => 20100726130632) do
     t.datetime "document_updated_at"
     t.string   "documentable_type",     :null => false
     t.integer  "documentable_id",       :null => false
+    t.datetime "locked_until"
+    t.integer  "locked_by_id"
   end
+
+  add_index "model_documents", ["documentable_type", "documentable_id"], :name => "index_model_documents_on_documentable_type_and_documentable_id"
 
   create_table "multi_element_choices", :force => true do |t|
     t.datetime "created_at"
@@ -222,9 +229,12 @@ ActiveRecord::Schema.define(:version => 20100726130632) do
     t.integer  "notable_id",                      :null => false
     t.boolean  "delta",         :default => true
     t.datetime "deleted_at"
+    t.datetime "locked_until"
+    t.integer  "locked_by_id"
   end
 
   add_index "notes", ["created_by_id"], :name => "notes_created_by_id"
+  add_index "notes", ["notable_type", "notable_id"], :name => "index_notes_on_notable_type_and_notable_id"
   add_index "notes", ["updated_by_id"], :name => "notes_updated_by_id"
 
   create_table "organizations", :force => true do |t|
@@ -251,6 +261,8 @@ ActiveRecord::Schema.define(:version => 20100726130632) do
     t.boolean  "delta",                           :default => true
     t.datetime "deleted_at"
     t.integer  "parent_org_id"
+    t.datetime "locked_until"
+    t.integer  "locked_by_id"
     t.integer  "num_employees"
     t.integer  "num_grants"
     t.integer  "assets"
@@ -260,7 +272,7 @@ ActiveRecord::Schema.define(:version => 20100726130632) do
   add_index "organizations", ["created_by_id"], :name => "organizations_created_by_id"
   add_index "organizations", ["geo_country_id"], :name => "organizations_geo_country_id"
   add_index "organizations", ["geo_state_id"], :name => "organizations_geo_state_id"
-  add_index "organizations", ["name"], :name => "index_organizations_on_name", :length => {"name"=>"255"}
+  add_index "organizations", ["name"], :name => "index_organizations_on_name", :length => {"name"=>"767"}
   add_index "organizations", ["parent_org_id"], :name => "index_organizations_on_parent_org_id"
   add_index "organizations", ["updated_by_id"], :name => "organizations_updated_by_id"
 
@@ -275,6 +287,22 @@ ActiveRecord::Schema.define(:version => 20100726130632) do
     t.text     "delta_attributes", :null => false
   end
 
+  create_table "role_users", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.string   "name",          :null => false
+    t.integer  "user_id"
+    t.string   "roleable_type"
+    t.integer  "roleable_id"
+  end
+
+  add_index "role_users", ["created_by_id"], :name => "role_users_created_by_id"
+  add_index "role_users", ["name", "roleable_type", "roleable_id"], :name => "index_role_users_on_name_and_roleable_type_and_roleable_id"
+  add_index "role_users", ["updated_by_id"], :name => "role_users_updated_by_id"
+  add_index "role_users", ["user_id"], :name => "index_role_users_on_user_id"
+
   create_table "user_organizations", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -287,19 +315,20 @@ ActiveRecord::Schema.define(:version => 20100726130632) do
     t.string   "email",           :limit => 400
     t.string   "phone",           :limit => 400
     t.datetime "deleted_at"
+    t.datetime "locked_until"
+    t.integer  "locked_by_id"
   end
 
   add_index "user_organizations", ["created_by_id"], :name => "user_organizations_created_by_id"
-  add_index "user_organizations", ["organization_id"], :name => "user_org_org_id"
+  add_index "user_organizations", ["organization_id"], :name => "index_user_organizations_on_organization_id"
   add_index "user_organizations", ["updated_by_id"], :name => "user_organizations_updated_by_id"
-  add_index "user_organizations", ["user_id"], :name => "user_org_user_id"
+  add_index "user_organizations", ["user_id"], :name => "index_user_organizations_on_user_id"
 
   create_table "users", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
-    t.text     "roles_text"
     t.string   "login",                        :limit => 40
     t.string   "first_name",                   :limit => 400,  :default => ""
     t.string   "last_name",                    :limit => 400,  :default => ""
@@ -333,6 +362,8 @@ ActiveRecord::Schema.define(:version => 20100726130632) do
     t.integer  "primary_user_organization_id"
     t.datetime "last_logged_in_at"
     t.string   "time_zone",                    :limit => 40,   :default => "Pacific Time (US & Canada)"
+    t.datetime "locked_until"
+    t.integer  "locked_by_id"
     t.string   "encrypted_password",           :limit => 128,  :default => "",                           :null => false
     t.string   "password_salt",                                :default => "",                           :null => false
     t.string   "confirmation_token"

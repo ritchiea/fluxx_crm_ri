@@ -15,19 +15,10 @@ class CreateDeals < ActiveRecord::Migration
       t.boolean :delta,       :null => :false, :default => true
     end
     
-    category_group = MultiElementGroup.create :name => 'deal_categories', :description => 'Deal Categories', :target_class_name => 'Deal'
-    MultiElementValue.create :multi_element_group_id => category_group.id, :value => 'Red'
-    MultiElementValue.create :multi_element_group_id => category_group.id, :value => 'Yellow'
-    MultiElementValue.create :multi_element_group_id => category_group.id, :value => 'Green'
-    MultiElementValue.create :multi_element_group_id => category_group.id, :value => 'Brown'
-    
     execute "alter table deals add constraint deals_categories foreign key (category_id) references multi_element_values(id)" unless connection.adapter_name =~ /SQLite/i
   end
 
   def self.down
     drop_table :deals
-    group = MultiElementGroup.where(:name => 'deal_categories').first
-    MultiElementValue.delete_all :multi_element_group_id => group.id
-    group.destroy
   end
 end

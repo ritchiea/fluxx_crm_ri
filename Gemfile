@@ -23,7 +23,11 @@ gem 'faker', '>=0.3.1'
 gem "formtastic", :git => "http://github.com/justinfrench/formtastic.git", :branch => "rails3"
 gem 'jsmin', '>= 1.0.1'
 
+gem "sqlite3-ruby", :require => "sqlite3"
+gem 'fastercsv', '>= 1.5.3'
 
+gem 'thin', '>= 1.2.7'
+gem 'rcov'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -35,9 +39,7 @@ gem 'jsmin', '>= 1.0.1'
 # gem 'ruby-debug'
 
 # Bundle the extra gems:
-# gem 'bj'
 # gem 'nokogiri', '1.4.1'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
 
 # Bundle gems for certain environments:
@@ -45,3 +47,8 @@ gem 'jsmin', '>= 1.0.1'
 # group :test do
 #   gem 'webrat'
 # end
+
+if RUBY_VERSION < '1.9'
+  gem "ruby-debug", ">= 0.10.3"
+end
+
