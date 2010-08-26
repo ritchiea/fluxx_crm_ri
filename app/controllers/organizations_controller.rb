@@ -1,8 +1,8 @@
 class OrganizationsController < ApplicationController
   include FluxxOrganizationsController
-  insta_index Organization do |insta|
-    insta.pre do |conf, controller|
-      p "ESH: have params=#{controller.params.inspect}"
-    end
+  
+  base.insta_index Organization do |insta|
+    insta.filter_title = "Organizations Filter"
+    insta.filter_template = 'organizations/organization_filter'
   end
 end
