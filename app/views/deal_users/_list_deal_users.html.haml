@@ -1,7 +1,7 @@
 %h2
   - if can_current_user_edit_create_users? 
     = link_to 'add a user relationship', new_deal_user_path(:deal_user => {:deal_id => model.id}),
-      :class => 'to-modal'
+      :class => 'to-modal','data-is-success' => '.show', 'data-on-success' => 'refreshCaller,close'
   User Relationships
 
 %div.user_row
