@@ -23,6 +23,9 @@ gem 'fastercsv', '>= 1.5.3'
 
 gem 'thin', '>= 1.2.7'
 gem 'rcov'
+gem 'compass'
+gem 'haml', '>= 3'
+
 
 if RUBY_VERSION < '1.9'
   gem "ruby-debug", ">= 0.10.3"

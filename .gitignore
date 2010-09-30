@@ -11,3 +11,8 @@ config/database.yml
 public/system
 tmtags
 Gemfile.lock
+public/images/fluxx_engine/
+public/javascripts/fluxx_crm/
+public/javascripts/fluxx_engine/
+public/stylesheets/compiled/
+public/stylesheets/fluxx_engine/
